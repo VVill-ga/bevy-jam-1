@@ -5,7 +5,16 @@ fn main() {
         .insert_resource(Msaa { samples: 4 })
         .add_plugins(DefaultPlugins)
         .add_startup_system(setup)
+        .add_system(update)
         .run();
+}
+
+fn update(
+    mut query: Query<(&mut Transform, With<Camera>)>
+) {
+    for (mut transform, camera) in query.iter_mut() {
+        transform.translation.x += 0.01;
+    }
 }
 
 /// set up a simple 3D scene
